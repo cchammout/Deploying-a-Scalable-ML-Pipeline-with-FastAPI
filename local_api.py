@@ -1,15 +1,13 @@
-import json
 import requests
 
 # Send a GET request
-url = "http://127.0.0.1:8000"
-response_get = requests.get(url)
+url_get = "http://127.0.0.1:8000/"
+response_get = requests.get(url_get)
 
-# Print the status code and welcome message for GET request
+# Print the status code and welcome message from the GET request
 print("GET Request:")
 print("Status Code:", response_get.status_code)
-print("Welcome Message:", response_get.text)
-print()
+print("Welcome Message:", response_get.json()["message"])
 
 # Prepare data for POST request
 data = {
@@ -30,9 +28,16 @@ data = {
 }
 
 # Send a POST request
-response_post = requests.post(url + "/data/", json=data)
+url_post = "http://127.0.0.1:8000/data/"
+response_post = requests.post(url_post, json=data)
 
-# Print the status code and result for POST request
-print("POST Request:")
+# Print the status code and result from the POST request
+print("\nPOST Request:")
 print("Status Code:", response_post.status_code)
-print("Result:", response_post.json()["result"])
+try:
+    result = response_post.json().get("result", "No result found")
+    print("Result:", result)
+except ValueError:
+    print("Error: Failed to decode JSON response")
+    print("Response Content:", response_post.content.decode())
+
