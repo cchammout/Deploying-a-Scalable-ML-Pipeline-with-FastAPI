@@ -63,7 +63,8 @@ def load_model(path):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine 
+    learning model using precision, recall, and F1.
 
     Inputs
     ------
@@ -84,7 +85,14 @@ def compute_model_metrics(y, preds):
 
 
 def performance_on_categorical_slice(
-    data, column_name, slice_value, categorical_features, label, encoder, lb, model
+    data, 
+    column_name, 
+    slice_value, 
+    categorical_features, 
+    label, 
+    encoder, 
+    lb, 
+    model
 ):
     """ Computes the model metrics on a slice of the data specified by a column name and value.
 
@@ -117,7 +125,12 @@ def performance_on_categorical_slice(
     sliced_data = data[data[column_name] == slice_value].copy()
 
     X_slice, y_slice, _, _ = process_data(
-        sliced_data, categorical_features, label, training=False, encoder=encoder, lb=lb
+        sliced_data,
+        categorical_features,
+        label,
+        training=False,
+        encoder=encoder,
+        lb=lb
     )
 
     preds = inference(model, X_slice)

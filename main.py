@@ -5,6 +5,7 @@ from ml.data import apply_label, process_data
 from ml.model import inference, load_model
 
 # DO NOT MODIFY
+
 class Data(BaseModel):
     age: int = Field(..., example=37)
     workclass: str = Field(..., example="Private")
@@ -23,6 +24,7 @@ class Data(BaseModel):
     native_country: str = Field(
         ..., example="United-States", alias="native-country")
 
+
 path = "model/encoder.pkl"
 encoder = load_model(path)
 
@@ -32,10 +34,12 @@ model = load_model(path)
 # TODO: create a RESTful API using FastAPI
 app = FastAPI()
 
+
 # TODO: create a GET on the root giving a welcome message
 @app.get("/")
 async def get_root():
     """ Say hello!"""
+    
     return {"message": "Welcome to the ML API!"}
 
 # TODO: create a POST on a different path that does model inference
@@ -44,7 +48,8 @@ async def post_inference(data: Data):
     # DO NOT MODIFY: turn the Pydantic model into a dict.
     data_dict = data.dict()
     # DO NOT MODIFY: clean up the dict to turn it into a Pandas DataFrame.
-    # The data has names with hyphens and Python does not allow those as variable names.
+    # The data has names with 
+    # hyphens and Python does not allow those as variable names.
     # Here it uses the functionality of FastAPI/Pydantic/etc to deal with this.
     data = {k.replace("_", "-"): [v] for k, v in data_dict.items()}
     data = pd.DataFrame.from_dict(data)
@@ -53,6 +58,9 @@ async def post_inference(data: Data):
         "workclass", "education", "marital-status", "occupation",
         "relationship", "race", "sex", "native-country",
     ]
-    data_processed, _, _, _ = process_data(data, categorical_features=cat_features, training=False)
+    # Break down the line
+    data_processed, _, _, _ = process_data(
+        data, categorical_features=cat_features, training=False
+    )
     _inference = inference(model, data_processed)
     return {"result": apply_label(_inference)}

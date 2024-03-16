@@ -74,7 +74,14 @@ with open("slice_output.txt", "w") as f:
             count = test[test[col] == slicevalue].shape[0]
             # Break down the function call
             p, r, fb = performance_on_categorical_slice(
-                test, col, slicevalue, cat_features, "salary", encoder, lb, model
+                test,
+                col,
+                slicevalue,
+                cat_features,
+                "salary",
+                encoder,
+                lb,
+                model
             )
             # Break down the print statement
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
@@ -82,4 +89,3 @@ with open("slice_output.txt", "w") as f:
                 f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}",
                 file=f
             )
-
