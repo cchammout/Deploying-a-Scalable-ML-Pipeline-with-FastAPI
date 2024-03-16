@@ -62,4 +62,3 @@ async def post_inference(data: Data):
     data_processed, _, _, _ = process_data(data, categorical_features=cat_features, training=False)
     _inference = inference(model, data_processed)
     return {"result": apply_label(_inference)}
-    

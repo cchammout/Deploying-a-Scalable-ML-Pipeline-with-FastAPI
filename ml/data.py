@@ -51,7 +51,7 @@ def process_data(
         y = np.array([])
 
     X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
+    X_continuous = X.drop(categorical_features, axis=1)
 
     if training is True:
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
@@ -76,3 +76,4 @@ def apply_label(inference):
         return ">50K"
     elif inference[0] == 0:
         return "<=50K"
+
