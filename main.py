@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 from ml.data import apply_label, process_data
 from ml.model import inference, load_model
 
-
 # DO NOT MODIFY
 class Data(BaseModel):
     age: int = Field(..., example=37)
@@ -13,8 +12,7 @@ class Data(BaseModel):
     education: str = Field(..., example="HS-grad")
     education_num: int = Field(..., example=10, alias="education-num")
     marital_status: str = Field(
-        ..., example="Married-civ-spouse", alias="marital-status"
-    )
+        ..., example="Married-civ-spouse", alias="marital-status")
     occupation: str = Field(..., example="Prof-specialty")
     relationship: str = Field(..., example="Husband")
     race: str = Field(..., example="White")
@@ -22,8 +20,8 @@ class Data(BaseModel):
     capital_gain: int = Field(..., example=0, alias="capital-gain")
     capital_loss: int = Field(..., example=0, alias="capital-loss")
     hours_per_week: int = Field(..., example=40, alias="hours-per-week")
-    native_country: str = Field(..., example="United-States", alias="native-country")
-
+    native_country: str = Field(
+        ..., example="United-States", alias="native-country")
 
 path = "model/encoder.pkl"
 encoder = load_model(path)
@@ -34,12 +32,10 @@ model = load_model(path)
 # TODO: create a RESTful API using FastAPI
 app = FastAPI()
 
-
 # TODO: create a GET on the root giving a welcome message
 @app.get("/")
 async def get_root():
     """ Say hello!"""
-    
     return {"message": "Welcome to the ML API!"}
 
 # TODO: create a POST on a different path that does model inference
@@ -54,14 +50,8 @@ async def post_inference(data: Data):
     data = pd.DataFrame.from_dict(data)
 
     cat_features = [
-        "workclass",
-        "education",
-        "marital-status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native-country",
+        "workclass", "education", "marital-status", "occupation",
+        "relationship", "race", "sex", "native-country",
     ]
     data_processed, _, _, _ = process_data(data, categorical_features=cat_features, training=False)
     _inference = inference(model, data_processed)

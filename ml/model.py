@@ -116,7 +116,9 @@ def performance_on_categorical_slice(
     """
     sliced_data = data[data[column_name] == slice_value].copy()
 
-    X_slice, y_slice, _, _ = process_data(sliced_data, categorical_features, label, training=False, encoder=encoder, lb=lb)
+    X_slice, y_slice, _, _ = process_data(
+        sliced_data, categorical_features, label, training=False, encoder=encoder, lb=lb
+    )
 
     preds = inference(model, X_slice)
 
