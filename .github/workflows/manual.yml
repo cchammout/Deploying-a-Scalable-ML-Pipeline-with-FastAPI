@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # Adjust branch name as needed
+env:
+  API_TOKEN: ${{ secrets.API_TOKEN }}
 
 jobs:
   build:
